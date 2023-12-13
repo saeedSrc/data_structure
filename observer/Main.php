@@ -2,16 +2,16 @@
 
 
 class ConcreteObserver2 implements Observer {
-    public function update()
+    public function update($value)
     {
-        echo "concrete 2 got notified! \n";
+        echo "concrete 2 got notified! with value: $value \n";
     }
 }
 
 class ConcreteObserver1 implements Observer {
-    public function update()
+    public function update($value)
     {
-        echo "concrete 1 got notified! \n";
+        echo "concrete 1 got notified! with value: $value \n";
     }
 }
 
@@ -35,9 +35,9 @@ class Observable {
 //     unset($array[$observer]);
 //    }
 
-    public function notify() {
+    public function notify($value) {
         foreach ($this->observers as $observer) {
-            $observer->update();
+            $observer->update($value);
 
         }
     }
@@ -46,15 +46,16 @@ class Observable {
 }
 
 interface Observer {
-    public function update();
+    public function update($value);
 }
 
 class ChildObservable  extends Observable {
 
     private $value;
 
-    public function setValue() {
-        $this->notify();
+    public function setValue($value) {
+        $this->value = $value;
+        $this->notify($value);
     }
 }
 class Main {
@@ -67,7 +68,7 @@ class Main {
         $observable->addObserver($concrete1);
         $observable->addObserver($concrete2);
 
-        $observable->setValue();
+        $observable->setValue(12);
     }
 }
 
