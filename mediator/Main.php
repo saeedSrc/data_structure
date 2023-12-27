@@ -98,6 +98,7 @@ class MyDialogBox extends DialogBox {
     }
 }
 
+
 class Main {
 public function main(){
     $myDialog = new MyDialogBox();
